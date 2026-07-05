@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Products | Green World Care</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<style>
+:root{
+    --bg:#030b08;
+    --bg2:#071612;
+    --glass:rgba(255,255,255,0.08);
+    --glass-2:rgba(255,255,255,0.05);
+    --border:rgba(255,255,255,0.12);
+    --green:#7dff9c;
+    --green-dark:#0d8a56;
+    --blue:#5bc0ff;
+    --gold:#ffcc70;
+    --white:#ffffff;
+    --muted:rgba(255,255,255,0.65);
+    --shadow:0 30px 80px rgba(0,0,0,0.45);
+    --radius:28px;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    background:
+    radial-gradient(circle at top left, rgba(0,255,140,0.15), transparent 25%),
+    radial-gradient(circle at top right, rgba(0,140,255,0.18), transparent 30%),
+    radial-gradient(circle at bottom center, rgba(255,255,255,0.06), transparent 40%),
+    linear-gradient(140deg,#020705,#04120f,#071d18,#020705);
+    min-height:100vh;
+    overflow-x:hidden;
+    color:white;
+    position:relative;
+}
+
+/* PARTICLES CANVAS STYLING */
+#bg-canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -5;
+    pointer-events: none;
+}
+
+/* NAVBAR */
+.navbar{
+    position:sticky;
+    top:0;
+    z-index:999;
+    backdrop-filter:blur(22px);
+    background:rgba(0,0,0,0.28);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+.nav-container{
+    width:min(1400px,92%);
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 0;
+}
+
+.logo{
+    font-size:1.4rem;
+    font-weight:800;
+    color:white;
+    text-decoration:none;
+    letter-spacing:-0.5px;
+    position:relative;
+}
+
+.logo span{
+    background:linear-gradient(90deg,#7dff9c,#5bc0ff);
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:28px;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:rgba(255,255,255,0.72);
+    font-weight:600;
+    transition:0.35s;
+    position:relative;
+}
+
+.nav-links a:hover{
+    color:white;
+}
+
+.nav-links a::after{
+    content:"";
+    position:absolute;
+    width:0%;
+    height:2px;
+    left:0;
+    bottom:-8px;
+    background:linear-gradient(90deg,#7dff9c,#5bc0ff);
+    transition:0.35s;
+}
+
+.nav-links a:hover::after{
+    width:100%;
+}
+
+.nav-btn{
+    padding:12px 20px;
+    border-radius:999px;
+    background:linear-gradient(135deg,#14d96b,#00a6ff);
+    color:white!important;
+    box-shadow:
+    0 0 25px rgba(0,255,140,0.3),
+    0 0 45px rgba(0,140,255,0.18);
+}
+
+.menu-btn{
+    display:none;
+    flex-direction:column;
+    gap:5px;
+    cursor:pointer;
+}
+
+.menu-btn span{
+    width:26px;
+    height:3px;
+    border-radius:999px;
+    background:white;
+}
+
+/* TOOLBAR */
+.toolbar{
+    width:min(1400px,92%);
+    margin:40px auto;
+    padding:24px;
+    border-radius:var(--radius);
+    background:var(--glass);
+    backdrop-filter:blur(18px);
+    border:1px solid var(--border);
+    box-shadow:var(--shadow);
+    position:relative;
+    overflow:hidden;
+}
+
+.toolbar-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:20px;
+}
+
+.search-box{
+    position:relative;
+}
+
+.search-box input{
+    width:100%;
+    padding:18px 22px 18px 58px;
+    border:none;
+    outline:none;
+    border-radius:18px;
+    background:rgba(255,255,255,0.07);
+    color:white;
+    font-size:1rem;
+    border:1px solid rgba(255,255,255,0.08);
+    transition:0.35s;
+}
+
+.search-box input:focus{
+    border-color:#5bc0ff;
+    box-shadow:
+    0 0 25px rgba(91,192,255,0.22);
+}
+
+.search-box svg{
+    position:absolute;
+    left:20px;
+    top:50%;
+    transform:translateY(-50%);
+    opacity:0.6;
+}
+
+select{
+    width:100%;
+    padding:18px;
+    border:none;
+    outline:none;
+    border-radius:18px;
+    background:rgba(255,255,255,0.07);
+    color:white;
+    font-size:1rem;
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+option{
+    background:#071612;
+}
+
+/* PRODUCTS LAYOUT */
+.catalog{
+    width:min(1400px,92%);
+    margin:auto;
+    padding-bottom:120px;
+}
+
+.products-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+    gap:28px;
+}
+
+.product-card{
+    position:relative;
+    border-radius:32px;
+    overflow:hidden;
+    background:
+    linear-gradient(180deg,
+    rgba(255,255,255,0.12),
+    rgba(255,255,255,0.04));
+    border:1px solid rgba(255,255,255,0.08);
+    backdrop-filter:blur(18px);
+    box-shadow:
+    0 20px 60px rgba(0,0,0,0.45),
+    inset 0 1px 1px rgba(255,255,255,0.08);
+    transition:0.5s cubic-bezier(.2,.8,.2,1);
+    transform-style:preserve-3d;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.product-card:hover{
+    transform:
+    rotateX(4deg)
+    rotateY(-4deg)
+    translateY(-12px)
+    scale(1.02);
+    border-color:rgba(91,192,255,0.35);
+    box-shadow:
+    0 30px 100px rgba(0,0,0,0.65),
+    0 0 60px rgba(0,255,140,0.14);
+}
+
+.card-glow{
+    position:absolute;
+    inset:-1px;
+    background:
+    linear-gradient(135deg,
+    rgba(0,255,140,0.2),
+    rgba(0,140,255,0.1),
+    transparent);
+    opacity:0;
+    transition:0.5s;
+    pointer-events: none;
+}
+
+.product-card:hover .card-glow{
+    opacity:1;
+}
+
+.category-pill{
+    position:absolute;
+    top:18px;
+    right:18px;
+    z-index:5;
+    padding:10px 14px;
+    border-radius:999px;
+    background:rgba(0,255,140,0.16);
+    border:1px solid rgba(0,255,140,0.22);
+    color:#7dff9c;
+    font-size:0.72rem;
+    font-weight:800;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    backdrop-filter:blur(12px);
+}
+
+.product-image{
+    height:260px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:30px;
+    position:relative;
+}
+
+.product-image::before{
+    content:"";
+    position:absolute;
+    width:220px;
+    height:220px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(255,255,255,0.14), transparent 70%);
+}
+
+.product-image img{
+    max-width:100%;
+    max-height:100%;
+    object-fit:contain;
+    z-index:2;
+    filter:drop-shadow(0 25px 30px rgba(0,0,0,0.5));
+    transition:0.5s;
+}
+
+.product-card:hover img{
+    transform:translateY(-10px) scale(1.05);
+}
+
+.product-content{
+    padding:28px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
+}
+
+.product-title{
+    font-size:1.3rem;
+    font-weight:800;
+    margin-bottom:8px;
+}
+
+.product-id{
+    font-family:'Monaco','Consolas',monospace;
+    font-size:0.75rem;
+    color:var(--gold);
+    margin-bottom:12px;
+    opacity:0.85;
+    display:block;
+    letter-spacing:0.5px;
+}
+
+.product-desc{
+    color:rgba(255,255,255,0.68);
+    line-height:1.7;
+    margin-bottom:24px;
+}
+
+.product-bottom{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    margin-top: auto;
+}
+
+.price{
+    font-size:1.4rem;
+    font-weight:800;
+    color:var(--gold);
+}
+
+.buy-btn{
+    padding:14px 20px;
+    border:none;
+    border-radius:16px;
+    font-weight:700;
+    cursor:pointer;
+    color:white;
+    text-decoration: none;
+    display: inline-block;
+    background:
+    linear-gradient(135deg,#14d96b,#00a6ff);
+    box-shadow:
+    0 10px 30px rgba(0,255,140,0.25);
+    transition:0.35s;
+}
+
+.buy-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:
+    0 20px 40px rgba(0,255,140,0.35);
+    color: white;
+}
+
+/* EMPTY */
+.empty-state{
+    text-align:center;
+    padding:80px 20px;
+    border-radius:30px;
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.08);
+    backdrop-filter:blur(18px);
+    max-width: min(1400px, 92%);
+    margin: 0 auto 120px;
+}
+
+/* FOOTER */
+.footer{
+    padding:50px 20px;
+    text-align:center;
+    border-top:1px solid rgba(255,255,255,0.06);
+    color:rgba(255,255,255,0.5);
+}
+
+/* MOBILE */
+@media(max-width:900px){
+    .toolbar-grid{
+        grid-template-columns:1fr;
+    }
+
+    .nav-links{
+        position:fixed;
+        top:82px;
+        right:-100%;
+        width:300px;
+        height:calc(100vh - 82px);
+        background:rgba(5,10,10,0.96);
+        backdrop-filter:blur(22px);
+        flex-direction:column;
+        padding:40px 30px;
+        transition:0.45s;
+        border-left:1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav-links.active{
+        right:0;
+    }
+
+    .menu-btn{
+        display:flex;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="logo">
+            <span>Green World Care</span>
+        </a>
+
+        <div class="nav-links" id="navLinks">
+            <a href="product.html">Products</a>
+            <a href="index.html">Home</a>
+            <a href="#" class="nav-btn">Shop Now</a>
+        </div>
+
+        <div class="menu-btn" id="menuBtn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</nav>
+
+<section class="toolbar">
+    <div class="toolbar-grid">
+        <div class="search-box">
+            <svg width="22" height="22" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+            </svg>
+            <input
+                type="search"
+                id="searchInput"
+                placeholder="Search wellness products..."
+            />
+        </div>
+
+        <div>
+            <select id="categoryFilter">
+                <option value="all">All Categories</option>
+            </select>
+        </div>
+    </div>
+</section>
+
+<section class="catalog">
+    <div class="products-grid" id="catalog"></div>
+</section>
+
+<div class="empty-state" id="emptyState" style="display: none;">
+    <h3>No Products Found</h3>
+    <p>No wellness products match your search criteria.</p>
+</div>
+
+<footer class="footer">
+    © 2026 Green World Care — Futuristic Wellness Commerce
+</footer>
+
+<script type="module">
+    import { db } from './js/firebase-config.js';
+    import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { listenToProducts, listenToPackages, escapeHtml } from './js/products.js';
+
+    const grid = document.getElementById("catalog");
+    const noProducts = document.getElementById("emptyState");
+    const searchInput = document.getElementById("searchInput");
+    const categoryFilter = document.getElementById("categoryFilter");
+    
+    let currentProducts = [];
+    let currentPackages = [];
+    let renderingTriggered = false;
+
+    // Lead Tracking Logic
+    async function logLead(productName, price) {
+        const userStr = localStorage.getItem("gw_current_user");
+        const user = userStr ? JSON.parse(userStr) : { fullName: "Guest", email: "guest@example.com" };
+
+        try {
+            await addDoc(collection(db, "leads"), {
+                customerName: user.fullName,
+                customerEmail: user.email,
+                productName: productName,
+                price: price,
+                bv: 20, 
+                timestamp: serverTimestamp()
+            });
+            console.log("Lead logged successfully");
+        } catch (error) {
+            console.error("Error logging lead: ", error);
+        }
+    }
+
+    if (grid) {
+        grid.addEventListener('click', (e) => {
+            const buyBtn = e.target.closest('.buy-btn');
+            if (buyBtn) {
+                const card = buyBtn.closest('.product-card');
+                const productName = card.querySelector('.product-title').textContent;
+                const priceText = card.querySelector('.price').textContent;
+                logLead(productName, priceText);
+            }
+        });
+    }
+
+    function productMatches(product) {
+        if (!searchInput || !categoryFilter) return true;
+        
+        const query = searchInput.value.trim().toLowerCase();
+        const category = categoryFilter.value;
+        const haystack = [
+            product.name,
+            product.description,
+            (currentPackages.find(p => p.id === product.category)?.name || "")
+        ].join(" ").toLowerCase();
+
+        return (!query || haystack.includes(query)) && (category === "all" || product.category === category);
+    }
+
+    function renderProductCard(product) {
+        const whatsappMsg = encodeURIComponent(`Hello Susan, I'm interested in ordering: ${product.name} (Ksh ${product.price})`);
+        const imageSrc = product.image ? product.image : "https://placehold.co/700x520/0a5c36/ffffff?text=Greenworld+Wellness";
+        const pkgName = currentPackages.find(p => p.id === product.category)?.name || "Wellness";
+
+        return `
+            <article class="product-card">
+                <div class="card-glow"></div>
+                <span class="category-pill">${escapeHtml(pkgName)}</span>
+                <div class="product-image">
+                    <img src="${imageSrc}" alt="${escapeHtml(product.name)}">
+                </div>
+                <div class="product-content">
+                    <div>
+                        <h2 class="product-title">${escapeHtml(product.name)}</h2>
+                        <span class="product-id">Code: ${escapeHtml(product.product_id || 'N/A')}</span>
+                        <p class="product-desc">${escapeHtml(product.description || "")}</p>
+                    </div>
+                    <div class="product-bottom">
+                        <div class="price">Ksh ${escapeHtml(product.price || "0.00")}</div>
+                        <a href="https://wa.me/2540790589260?text=${whatsappMsg}" class="buy-btn" target="_blank" rel="noopener noreferrer">
+                            Order on WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </article>
+        `;
+    }
+
+    function renderProducts() {
+        if (!grid) return;
+        renderingTriggered = true;
+
+        const visibleProducts = currentProducts.filter(productMatches);
+        grid.innerHTML = visibleProducts.map(renderProductCard).join("");
+        
+        if (noProducts) {
+            noProducts.style.display = (visibleProducts.length === 0) ? "block" : "none";
+        }
+    }
+
+    function populateCategoryFilter(pkgs) {
+        if (!categoryFilter) return;
+        const currentVal = categoryFilter.value || "all";
+        categoryFilter.innerHTML = '<option value="all">All Categories</option>';
+        pkgs.forEach(pkg => {
+            const option = document.createElement('option');
+            option.value = pkg.id;
+            option.textContent = pkg.name;
+            categoryFilter.appendChild(option);
+        });
+        categoryFilter.value = currentVal;
+    }
+
+    try {
+        listenToPackages(pkgs => {
+            currentPackages = pkgs || [];
+            populateCategoryFilter(currentPackages);
+            if (currentProducts.length > 0) renderProducts();
+        });
+    } catch(e) { console.error("Catalog packages pipeline failed:", e); }
+
+    try {
+        listenToProducts(prods => {
+            currentProducts = prods || [];
+            renderProducts();
+        });
+    } catch(e) { console.error("Catalog products pipeline failed:", e); }
+
+
+    // Backup connection channel
+    setTimeout(() => {
+        if (!renderingTriggered) {
+            console.warn("Catalog streams stalled. Running fallback database pipeline...");
+            
+            if (window.db || (typeof firebase !== 'undefined' && firebase.firestore)) {
+                const firestoreInstance = window.db || firebase.firestore();
+                
+                firestoreInstance.collection('packages').get().then(snapshot => {
+                    currentPackages = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                    populateCategoryFilter(currentPackages);
+                    if (currentProducts.length > 0) renderProducts();
+                }).catch(e => console.error(e));
+
+                firestoreInstance.collection('products').onSnapshot(snapshot => {
+                    currentProducts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                    renderProducts();
+                }, error => {
+                    if (grid) grid.innerHTML = `<div class="text-center text-white-50 p-5"><p>Link error: ${error.message}</p></div>`;
+                });
+            }
+        }
+    }, 2500);
+
+
+    if (searchInput) searchInput.addEventListener("input", renderProducts);
+    if (categoryFilter) categoryFilter.addEventListener("change", renderProducts);
+
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    if (menuBtn && navLinks) {
+        menuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    }
+
+    initParticles();
+
+    function initParticles() {
+        const canvas = document.getElementById("bg-canvas");
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d");
+        const particles = [];
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        function makeParticle() { return { x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight, size: Math.random() * 2, speed: Math.random() * 0.4 + 0.1 }; }
+        function draw() {
+            ctx.clearRect(0,0,canvas.width,canvas.height); 
+            ctx.fillStyle = "rgba(125, 255, 156, 0.3)";
+            particles.forEach(p => { 
+                p.y -= p.speed; 
+                if (p.y < 0) p.y = canvas.height; 
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI*2); ctx.fill(); 
+            });
+            requestAnimationFrame(draw);
+        }
+        resize();
+        for(let i=0; i<75; i++) particles.push(makeParticle());
+        window.addEventListener("resize", resize);
+        draw();
+    }
+</script>
+</body>
+</html>

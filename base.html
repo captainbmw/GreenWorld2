@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Greenworld Care | {% block title %}Healthcare & Membership{% endblock %}</title>
+    
+    <!-- Bootstrap 5 CSS + Icons + Google Fonts for professional look -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    
+    <!-- Custom Base Styles (Global) -->
+    <style>
+        :root {
+            --forest-green: #006400;
+            --forest-green-dark: #004d00;
+            --forest-green-light: #e0f0e0;
+            --grey-bg: #f4f7f6;
+            --card-white: #ffffff;
+            --text-dark: #1a2c1e;
+            --footer-bg: #1e2a2a;
+        }
+        
+        * {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
+        body { min-width: 320px; }
+        main, section, header, footer, nav { min-width: 0; }
+        img, video, iframe { max-width: 100%; height: auto; }
+        table { width: 100%; }
+        
+        body {
+            background-color: var(--grey-bg);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            color: #2c3e2f;
+            padding-top: 0;
+            margin: 0;
+        }
+        
+        /* Main content wrapper to push footer down */
+        .main-content {
+            flex: 1 0 auto;
+        }
+        
+        /* Forest Green Navbar Customization */
+        .navbar-forest {
+            background: linear-gradient(135deg, var(--forest-green) 0%, var(--forest-green-dark) 100%);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            padding: 0.7rem 1rem;
+            transition: all 0.2s;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.65rem;
+            letter-spacing: -0.5px;
+            color: white !important;
+            display: flex;
+            align-items: center; gap: 10px;
+        }
+        
+        .navbar-brand i {
+            font-size: 1.8rem;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+        
+        .navbar-brand span {
+            background: rgba(255,255,255,0.15);
+            padding: 0.2rem 0.6rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-left: 6px;
+        }
+        
+        .nav-link-custom {
+            color: rgba(255, 255, 255, 0.9) !important;
+            font-weight: 500;
+            margin: 0 0.2rem;
+            border-radius: 40px;
+            transition: all 0.2s ease;
+            padding: 0.5rem 1rem;
+        }
+        
+        .nav-link-custom:hover, .nav-link-custom.active {
+            background: rgba(255, 255, 255, 0.18);
+            color: white !important;
+            transform: translateY(-1px);
+        }
+        
+        .navbar-toggler {
+            border: none;
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 0.7rem;
+        }
+        
+        .navbar-toggler-icon {
+            filter: brightness(0) invert(1);
+        }
+        
+        /* User avatar / dropdown styling */
+        .user-greeting {
+            background: rgba(255, 255, 255, 0.12);
+            padding: 0.35rem 0.9rem;
+            border-radius: 50px;
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        /* Alert message container to appear smoothly below navbar */
+        .message-container {
+            margin-top: 1.2rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .alert-custom {
+            border-radius: 20px;
+            border: none;
+            padding: 0.9rem 1.2rem;
+            font-weight: 500;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.03);
+            -webkit-backdrop-filter: blur(2px);
+            backdrop-filter: blur(2px);
+        }
+        
+        /* Footer Icon and Brand Colors */
+        .footer-logo-icon {
+            color: #8bc34a;
+        }
+        
+        .footer-brand-name {
+            color: #e2f0e2;
+        }
+        
+        /* footer styling – minimalist clean */
+        .footer-minimalist {
+            background-color: var(--footer-bg);
+            color: rgba(255, 255, 255, 0.75);
+            padding: 2rem 0 1.2rem;
+            margin-top: 3rem;
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .footer-minimalist a {
+            color: #b8e4b8;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .footer-minimalist a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 1.2rem;
+            margin-top: 0.8rem;
+            font-size: 0.75rem;
+            text-align: center;
+        }
+        
+        /* responsive adjustments */
+        @media (max-width: 768px) {
+            .navbar-brand {
+                font-size: 1.3rem;
+            }
+            .navbar-brand i {
+                font-size: 1.4rem;
+            }
+            .footer-minimalist {
+                text-align: center;
+            }
+            .message-container {
+                margin-left: 12px;
+                margin-right: 12px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .container {
+                padding-left: 0.85rem;
+                padding-right: 0.85rem;
+            }
+
+            .navbar-brand {
+                max-width: 72vw;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .content-card {
+                border-radius: 20px;
+                padding: 1.2rem;
+            }
+
+            .btn {
+                min-height: 44px;
+            }
+        }
+
+        @media (min-width: 1400px) {
+            .container {
+                max-width: 1320px;
+            }
+        }
+        
+        /* Card styling used across child templates */
+        .content-card {
+            background: var(--card-white);
+            border-radius: 28px;
+            padding: 1.8rem;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.05);
+            border: none;
+            transition: transform 0.1s ease;
+        }
+        
+        /* utility spacing */
+        .mt-safe {
+            margin-top: 1rem;
+        }
+    </style>
+    
+    <!-- Extra CSS Block for child templates to inject page-specific styles -->
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+    <!-- ==================== NAVIGATION BAR: FOREST GREEN THEME ==================== -->
+    <nav class="navbar navbar-expand-lg navbar-forest sticky-top">
+        <div class="container">
+            <!-- Brand Logo / Text -->
+            <a class="navbar-brand" href="{% url 'index' %}">
+                <i class="bi bi-tree-fill"></i> 
+                Greenworld Care
+                <span><i class="bi bi-shield-heart"></i> Member</span>
+            </a>
+            
+            <!-- Mobile Toggler -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <!-- Navbar Links (Dynamic based on user auth) -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center gap-1"><li class="nav-item">
+                        <a class="nav-link nav-link-custom" href="{% url 'index' %}">
+                            <i class="bi bi-house-door-fill"></i> Home
+                        </a>
+                    </li><li class="nav-item">
+                        <a class="nav-link nav-link-custom" href="{% url 'dashboard' %}">
+                            <i class="bi bi-speedometer2"></i> Dashboard
+                        </a>
+                    </li>{% if not user.is_authenticated %}<li class="nav-item">
+                        <a class="nav-link nav-link-custom" href="{% url 'register_member' %}">
+                            <i class="bi bi-person-plus-fill"></i> Register
+                        </a>
+                    </li><li class="nav-item">
+                        <a class="nav-link nav-link-custom" href="{% url 'member_login' %}">
+                            <i class="bi bi-box-arrow-in-right"></i> Login
+                        </a>
+                    </li><li class="nav-item">
+                        <span class="user-greeting"><i class="bi bi-shield-lock"></i> Secure Access</span>
+                    </li>{% else %}<li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle nav-link-custom" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle"></i> {{ user.username|default:"Member" }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{% url 'dashboard' %}"><i class="bi bi-gear"></i> My Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="{% url 'logout' %}"><i class="bi bi-door-closed"></i> Logout</a></li>
+                        </ul>
+                    </li>{% endif %}</ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ==================== MESSAGES SECTION: DJANGO MESSAGES ==================== -->
+    <div class="container message-container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-custom alert-dismissible fade show 
+                    {% if message.tags == 'error' %}alert-danger
+                    {% elif message.tags == 'success' %}alert-success
+                    {% elif message.tags == 'warning' %}alert-warning
+                    {% else %}alert-info{% endif %}" 
+                    role="alert">
+                    <i class="bi 
+                        {% if message.tags == 'error' %}bi-exclamation-triangle-fill
+                        {% elif message.tags == 'success' %}bi-check-circle-fill
+                        {% elif message.tags == 'warning' %}bi-exclamation-diamond-fill
+                        {% else %}bi-info-circle-fill{% endif %} me-2"></i>
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <!-- ==================== MAIN CONTENT BLOCK ==================== -->
+    <main class="main-content">
+        {% block content_wrapper %}<div class="container py-3">{% endblock %}
+            {% block content %}
+            <!-- Default fallback content (child templates will override) -->
+            <div class="content-card">
+                <h3 class="text-center text-muted">Welcome to Greenworld Care</h3>
+                <p class="text-center">This is the base template. Override {% verbatim %}{% block content %}{% endverbatim %} in your child templates.</p>
+            </div>
+            {% endblock %}
+        {% block content_wrapper_end %}</div>{% endblock %}
+    </main>
+
+    <!-- ==================== FOOTER: CLEAN MINIMALIST ==================== -->
+    <footer class="footer-minimalist">
+        <div class="container">
+            <div class="row gy-3">
+                <div class="col-md-5">
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                        <i class="bi bi-tree fs-4 footer-logo-icon"></i>
+                        <span class="fw-semibold footer-brand-name">Greenworld Care</span>
+                    </div>
+                    <p class="small opacity-75">Empowering healthcare & membership management with eco-friendly digital solutions. Your wellness, our mission.</p>
+                </div>
+                <div class="col-md-3">
+                    <h6 class="text-white mb-3 fw-semibold">Quick Links</h6>
+                    <ul class="list-unstyled small">
+                        <li><a href="{% url 'index' %}" class="text-decoration-none">Home</a></li>
+                        <li class="mt-2"><a href="{% url 'register_member' %}" class="text-decoration-none">Become a Member</a></li>
+                        <li class="mt-2"><a href="{% url 'member_login' %}" class="text-decoration-none">Member Login</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h6 class="text-white mb-3 fw-semibold">Legal & Support</h6>
+                    <ul class="list-unstyled small">
+                        <li><i class="bi bi-envelope me-2"></i> support@greenworldcare.com</li>
+                        <li class="mt-2"><i class="bi bi-telephone"></i> +1 (800) 456-7890</li>
+                        <li class="mt-2"><a href="#" class="text-decoration-none">Privacy Policy</a> | <a href="#" class="text-decoration-none">Terms</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; {% now "Y" %} Greenworld Care — Integrated Health & Membership System. All rights reserved.
+                <span class="mx-1">•</span> <i class="bi bi-forest"></i> Forest Green Initiative
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle (required for interactive components) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Additional global JS (auto-hide messages) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-dismiss alerts after 5 seconds for better UX
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(alert => {
+                setTimeout(() => {
+                    if(alert && alert.parentNode) {
+                        alert.classList.add('fade');
+                        setTimeout(() => {
+                            if(alert && alert.remove) alert.remove();
+                        }, 500);
+                    }
+                }, 5500);
+            });
+            
+            // highlight active nav link based on current URL (simple)
+            const currentUrl = window.location.pathname;
+            document.querySelectorAll('.nav-link-custom').forEach(link => {
+                const href = link.getAttribute('href');
+                if(href && href !== '#' && currentUrl === href) {
+                    link.classList.add('active');
+                } else if (href && currentUrl.startsWith(href) && href !== '/') {
+                    // edge for dashboard vs home
+                    if (href !== '/' && href !== '') link.classList.add('active');
+                }
+            });
+        });
+    </script>
+    
+    <!-- Extra JS Block for child templates -->
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Add Product | Greenworld Staff Administration</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+       /* =========================================================
+   ENTERPRISE SAAS DESIGN SYSTEM
+   Premium Dark Dashboard UI
+   Compatible with Existing HTML Structure
+========================================================= */
+
+:root {
+
+    /* ========= COLOR TOKENS ========= */
+
+    --bg-primary: #060b14;
+    --bg-secondary: #0b1220;
+    --bg-tertiary: #111827;
+    --bg-elevated: #172033;
+
+    --surface-1: rgba(255, 255, 255, 0.04);
+    --surface-2: rgba(255, 255, 255, 0.06);
+    --surface-3: rgba(255, 255, 255, 0.08);
+
+    --border-soft: rgba(255, 255, 255, 0.08);
+    --border-medium: rgba(255, 255, 255, 0.12);
+    --border-strong: rgba(255, 255, 255, 0.18);
+
+    --ink: #f8fafc;
+    --ink-muted: #94a3b8;
+    --ink-soft: #cbd5e1;
+
+    --blue: #3b82f6;
+    --blue-light: #60a5fa;
+    --blue-dark: #1d4ed8;
+
+    --green: #10b981;
+    --green-light: #34d399;
+
+    --danger: #ef4444;
+    --danger-light: #f87171;
+
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.10);
+
+    /* ========= SHADOWS ========= */
+
+    --shadow-xs:
+        0 2px 4px rgba(0,0,0,.18);
+
+    --shadow-sm:
+        0 8px 18px rgba(0,0,0,.25);
+
+    --shadow-md:
+        0 20px 40px rgba(0,0,0,.35);
+
+    --shadow-lg:
+        0 30px 70px rgba(0,0,0,.45);
+
+    --shadow-blue:
+        0 20px 50px rgba(59,130,246,.20);
+
+    --shadow-green:
+        0 20px 50px rgba(16,185,129,.18);
+
+    /* ========= RADIUS ========= */
+
+    --radius-sm: 12px;
+    --radius-md: 18px;
+    --radius-lg: 24px;
+    --radius-xl: 30px;
+
+    /* ========= SPACING ========= */
+
+    --space-1: 8px;
+    --space-2: 12px;
+    --space-3: 16px;
+    --space-4: 20px;
+    --space-5: 24px;
+    --space-6: 32px;
+    --space-7: 40px;
+    --space-8: 48px;
+
+    /* ========= ANIMATION ========= */
+
+    --ease:
+        cubic-bezier(0.4, 0, 0.2, 1);
+
+    --transition:
+        280ms var(--ease);
+
+    --transition-fast:
+        180ms var(--ease);
+}
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+body {
+    min-width: 320px;
+    margin: 0;
+    min-height: 100vh;
+
+    color: var(--ink);
+
+    background:
+        linear-gradient(
+            180deg,
+            #050913 0%,
+            #08111f 35%,
+            #060b14 100%
+        );
+
+    font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        sans-serif;
+
+    font-size: 16px;
+    line-height: 1.65;
+    letter-spacing: -0.01em;
+
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+/* =========================================================
+   PREMIUM BACKGROUND
+========================================================= */
+
+#bg-canvas {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(59,130,246,.18),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 85% 10%,
+            rgba(16,185,129,.12),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(96,165,250,.08),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #050913 0%,
+            #091321 45%,
+            #040812 100%
+        );
+}
+
+/* =========================================================
+   PAGE LAYOUT
+========================================================= */
+
+.page-shell {
+    position: relative;
+    padding: 90px 0 64px;
+}
+
+/* =========================================================
+   TOP NAVIGATION
+========================================================= */
+
+.top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    z-index: 100;
+
+    background:
+        rgba(8, 12, 22, 0.72);
+
+    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(24px);
+
+    border-bottom:
+        1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.30);
+}
+
+.top-nav::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.15),
+            transparent
+        );
+}
+
+.brand-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 18px 0;
+
+    text-decoration: none;
+    color: var(--ink);
+
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: -0.02em;
+
+    transition: var(--transition);
+}
+
+.brand-link:hover {
+    opacity: .92;
+    transform: translateY(-1px);
+}
+
+/* =========================================================
+   MAIN GLASS CONTAINER
+========================================================= */
+
+.glass-form-card {
+    position: relative;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,.06),
+            rgba(255,255,255,.03)
+        );
+
+    border:
+        1px solid rgba(255,255,255,.10);
+
+    border-radius: var(--radius-xl);
+
+    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(24px);
+
+    box-shadow:
+        var(--shadow-lg);
+
+    transition:
+        transform var(--transition),
+        box-shadow var(--transition);
+}
+
+.glass-form-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.08),
+            transparent 35%
+        );
+
+    pointer-events: none;
+}
+
+.glass-form-card:hover {
+    transform: translateY(-2px);
+}
+
+/* =========================================================
+   ADMIN HEADER
+========================================================= */
+
+.admin-header {
+    position: relative;
+    overflow: hidden;
+
+    padding: 56px 48px;
+
+    text-align: center;
+
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(59,130,246,.18),
+            transparent 45%
+        ),
+        linear-gradient(
+            135deg,
+            rgba(17,24,39,.92),
+            rgba(9,15,28,.92)
+        );
+
+    border-bottom:
+        1px solid rgba(255,255,255,.08);
+}
+
+.admin-header::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(59,130,246,.35),
+            transparent
+        );
+}
+
+.admin-header i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 88px;
+    height: 88px;
+
+    margin-bottom: 24px;
+
+    border-radius: 50%;
+
+    color: var(--blue-light);
+    font-size: 2.7rem;
+
+    background:
+        rgba(59,130,246,.12);
+
+    border:
+        1px solid rgba(59,130,246,.20);
+
+    box-shadow:
+        0 0 0 8px rgba(59,130,246,.05),
+        0 20px 50px rgba(59,130,246,.18);
+}
+
+.admin-header h2 {
+    margin: 0;
+
+    font-size:
+        clamp(2.2rem, 4vw, 3.4rem);
+
+    font-weight: 800;
+
+    letter-spacing: -0.04em;
+
+    line-height: 1.1;
+}
+
+.admin-header p {
+    max-width: 720px;
+    margin: 16px auto 0;
+
+    color: var(--ink-muted);
+
+    font-size: 1rem;
+}
+
+/* =========================================================
+   BODY
+========================================================= */
+
+.admin-body {
+    padding: 48px;
+}
+
+/* =========================================================
+   PANELS
+========================================================= */
+
+.section-panel,
+.package-add-section {
+    position: relative;
+
+    border-radius: var(--radius-lg);
+
+    padding: 32px;
+
+    margin-bottom: 32px;
+
+    transition:
+        transform var(--transition),
+        box-shadow var(--transition),
+        border-color var(--transition);
+}
+
+.section-panel {
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,.04),
+            rgba(255,255,255,.02)
+        );
+
+    border:
+        1px solid var(--border-medium);
+
+    box-shadow:
+        var(--shadow-sm);
+}
+
+.section-panel:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        var(--shadow-md);
+}
+
+.package-add-section {
+    background:
+        linear-gradient(
+            180deg,
+            rgba(16,185,129,.10),
+            rgba(16,185,129,.04)
+        );
+
+    border:
+        1px solid rgba(16,185,129,.20);
+
+    box-shadow:
+        var(--shadow-green);
+}
+
+/* =========================================================
+   SECTION TITLES
+========================================================= */
+
+.section-title-pro {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin-bottom: 28px;
+    padding-bottom: 14px;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.08);
+
+    color: var(--green-light);
+
+    font-size: 1.05rem;
+    font-weight: 700;
+
+    letter-spacing: .03em;
+}
+
+/* =========================================================
+   LABELS
+========================================================= */
+
+.form-label {
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: var(--ink-soft);
+
+    font-size: .78rem;
+    font-weight: 700;
+
+    letter-spacing: .12em;
+    text-transform: uppercase;
+}
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+.form-control,
+.form-select {
+    width: 100%;
+
+    min-height: 54px;
+
+    padding: 14px 18px;
+
+    border-radius: 16px;
+
+    border:
+        1px solid rgba(255,255,255,.10);
+
+    background:
+        rgba(255,255,255,.04);
+
+    color: var(--ink);
+
+    font-size: .95rem;
+
+    transition:
+        border-color var(--transition),
+        background var(--transition),
+        box-shadow var(--transition),
+        transform var(--transition-fast);
+}
+
+.form-control::placeholder {
+    color:
+        rgba(255,255,255,.35);
+}
+
+.form-control:hover,
+.form-select:hover {
+    border-color:
+        rgba(255,255,255,.18);
+}
+
+.form-control:focus,
+.form-select:focus {
+    outline: none;
+
+    background:
+        rgba(255,255,255,.06);
+
+    border-color:
+        var(--blue-light);
+
+    box-shadow:
+        0 0 0 4px rgba(59,130,246,.14),
+        0 10px 30px rgba(59,130,246,.10);
+
+    transform:
+        translateY(-1px);
+}
+
+.form-select option {
+    background: #101826;
+    color: white;
+}
+
+/* =========================================================
+   PREVIEW SECTION
+========================================================= */
+
+.preview-box-pro {
+    position: relative;
+
+    min-height: 360px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    padding: 32px;
+
+    border-radius: 24px;
+
+    border:
+        2px dashed rgba(255,255,255,.12);
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,.03),
+            rgba(255,255,255,.02)
+        );
+
+    transition: var(--transition);
+}
+
+.preview-box-pro:hover {
+    border-color:
+        rgba(59,130,246,.30);
+
+    background:
+        rgba(255,255,255,.04);
+}
+
+.preview-box-pro.has-image {
+    border-style: solid;
+
+    border-color:
+        rgba(59,130,246,.40);
+
+    background:
+        rgba(255,255,255,.05);
+
+    box-shadow:
+        inset 0 0 0 1px rgba(59,130,246,.15);
+}
+
+.preview-image-large {
+    width: 100%;
+    max-height: 340px;
+
+    object-fit: contain;
+
+    border-radius: 18px;
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+        0 24px 60px rgba(0,0,0,.40);
+
+    transition: var(--transition);
+}
+
+.preview-image-large:hover {
+    transform: scale(1.01);
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.btn-admin-submit,
+.btn-admin-cancel {
+    min-height: 56px;
+
+    padding: 16px 32px;
+
+    border-radius: 999px;
+
+    font-weight: 700;
+
+    letter-spacing: .04em;
+
+    transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition),
+        background var(--transition);
+
+    cursor: pointer;
+}
+
+.btn-admin-submit {
+    border: none;
+
+    color: #fff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #3b82f6 0%,
+            #2563eb 50%,
+            #1d4ed8 100%
+        );
+
+    box-shadow:
+        0 12px 35px rgba(37,99,235,.35);
+}
+
+.btn-admin-submit:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 20px 45px rgba(37,99,235,.45);
+}
+
+.btn-admin-submit:active {
+    transform: translateY(0);
+}
+
+.btn-admin-cancel {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    text-decoration: none;
+
+    color: var(--ink-soft);
+
+    background:
+        rgba(255,255,255,.04);
+
+    border:
+        1px solid rgba(255,255,255,.12);
+
+    backdrop-filter: blur(10px);
+}
+
+.btn-admin-cancel:hover {
+    color: white;
+
+    transform: translateY(-2px);
+
+    border-color:
+        rgba(255,255,255,.22);
+
+    background:
+        rgba(255,255,255,.08);
+}
+
+/* =========================================================
+   LOADING OVERLAY
+========================================================= */
+
+.loading-overlay {
+    position: fixed;
+    inset: 0;
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 9999;
+
+    background:
+        rgba(2,6,12,.82);
+
+    backdrop-filter: blur(12px);
+}
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+button:focus-visible,
+a:focus-visible,
+.form-control:focus-visible,
+.form-select:focus-visible {
+    outline: none;
+
+    box-shadow:
+        0 0 0 4px rgba(59,130,246,.22);
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1024px) {
+
+    .admin-body {
+        padding: 32px;
+    }
+
+    .admin-header {
+        padding: 48px 32px;
+    }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .page-shell {
+        padding-top: 72px;
+    }
+
+    .admin-header {
+        padding: 40px 24px;
+    }
+
+    .admin-header i {
+        width: 72px;
+        height: 72px;
+        font-size: 2rem;
+    }
+
+    .admin-body {
+        padding: 22px;
+    }
+
+    .section-panel,
+    .package-add-section {
+        padding: 22px;
+    }
+
+    .btn-admin-submit,
+    .btn-admin-cancel {
+        width: 100%;
+    }
+
+    .button-group {
+        flex-direction: column;
+        gap: 14px;
+    }
+}
+
+/* =========================================================
+   ULTRA WIDE
+========================================================= */
+
+@media (min-width: 1600px) {
+
+    .glass-form-card {
+        max-width: 1500px;
+        margin-inline: auto;
+    }
+
+    .admin-body {
+        padding: 56px;
+    }
+}
+    </style>
+</head>
+<body>
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="spinner-border text-primary" role="status"></div>
+    </div>
+
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+    <nav class="top-nav">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a class="brand-link" href="index.html"><i class="bi bi-tree-fill"></i> Greenworld Care Administration</a>
+            <div class="d-flex gap-2">
+                <a href="index.html" class="btn btn-sm btn-outline-light rounded-pill px-3">Home</a>
+                <a href="product.html" class="btn btn-sm btn-outline-light rounded-pill px-3">View Catalog</a>
+                <button id="logoutBtn" class="btn btn-sm btn-danger rounded-pill px-3">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page-shell">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-11">
+                    <div class="glass-form-card" data-aos="fade-up">
+                        
+                        <!-- Header -->
+                        <div class="admin-header">
+                            <i class="bi bi-box-seam-fill"></i>
+                            <h2>Inventory Management</h2>
+                            <p>Expand the Greenworld catalog with premium wellness solutions.</p>
+                        </div>
+
+                        <!-- Body -->
+                        <div class="admin-body">
+                            
+                            <!-- Section 1: Add New Package Category -->
+                            <div class="package-add-section" data-aos="fade-right">
+                                <div class="section-title-pro">
+                                    <i class="bi bi-tags-fill"></i> Create New Package Category
+                                </div>
+                                <form id="packageForm">
+                                    <div class="row g-4 align-items-end">
+                                        <div class="col-md-9">
+                                            <label class="form-label">Package Name</label>
+                                            <input type="text" id="packageName" class="form-control" placeholder="e.g. Detox" required>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <button type="submit" class="btn-admin-submit w-100 py-3">
+                                                <i class="bi bi-plus-circle me-2"></i> Add Package
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!-- Section 2: Add Product -->
+                            <form id="productForm">
+                                <div class="row g-5">
+                                    <!-- Left Column: Form Fields -->
+                                    <div class="col-lg-7">
+                                        <div class="section-title-pro">
+                                            <i class="bi bi-info-circle-fill"></i> Product Specifications
+                                        </div>
+
+                                        <div class="row g-4">
+                                            <div class="col-12">
+                                                <label class="form-label">Select Package Category</label>
+                                                <select id="productPackage" class="form-select" required>
+                                                    <option value="">Select a category</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <label class="form-label">Full Product Name</label>
+                                                <input type="text" id="productName" class="form-control" placeholder="e.g. Aloe Vera Plus" required>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="form-label">Product ID</label>
+                                                <input type="text" id="productId" class="form-control" placeholder="e.g. GW-001" required>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Unit Price (Ksh)</label>
+                                                <input type="number" id="productPrice" class="form-control" placeholder="0" required>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">BV Allocation</label>
+                                                <input type="number" id="productBV" class="form-control" placeholder="0" required>
+                                            </div>
+                                            <div class="col-12">
+                                                <label class="form-label">Description</label>
+                                                <textarea id="productDescription" class="form-control" rows="3" placeholder="Briefly describe the product..." required></textarea>
+                                            </div>
+                                            <div class="col-12">
+                                                <label class="form-label">Key Benefits</label>
+                                                <textarea id="productBenefits" class="form-control" rows="4" placeholder="List the primary health benefits..." required></textarea>
+                                            </div>
+                                            <div class="col-12">
+                                                <label class="form-label">Visual Asset (Product Image)</label>
+                                                <input type="file" id="productImageFile" class="form-control" accept="image/*">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Right Column: Visual Preview -->
+                                    <div class="col-lg-5">
+                                        <div class="section-title-pro">
+                                            <i class="bi bi-eye-fill"></i> Live Preview
+                                        </div>
+                                        
+                                        <div class="preview-box-pro" id="previewBox">
+                                            <div id="previewEmpty">
+                                                <i class="bi bi-image-fill mb-3" style="font-size: 4rem; color: rgba(255, 255, 255, 0.2);"></i>
+                                                <h6 class="fw-bold text-white opacity-50">Awaiting Asset Upload</h6>
+                                                <p class="small text-white opacity-40 mb-0">Select a high-resolution image to preview how it will appear in the catalog.</p>
+                                            </div>
+                                            <img id="imageDisplay" class="preview-image-large" style="display: none;" alt="Product Preview">
+                                        </div>
+                                        
+                                        <!-- Real-time Detail Display -->
+                                        <div id="previewDetails" class="mt-3 p-3 rounded-4" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); display: block;">
+                                            <h5 id="prevName" class="text-white fw-bold mb-1">Product Title</h5>
+                                            <p id="prevPrice" class="text-success fw-bold mb-2">Ksh 0</p>
+                                            <p id="prevDesc" class="small text-white-50 mb-0">Description preview will appear here...</p>
+                                        </div>
+
+                                        <div class="mt-4 p-4 rounded-4" style="background: rgba(96, 165, 250, 0.05); border: 1px solid rgba(96, 165, 250, 0.2);">
+                                            <div class="d-flex gap-3 align-items-center">
+                                                <i class="bi bi-info-square-fill text-info fs-3"></i>
+                                                <p class="small text-white opacity-70 mb-0"><strong>Staff Tip:</strong> Images should be 800x800px or larger for the best presentation. Supported formats: JPG, PNG, WEBP.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Footer Actions -->
+                                <div class="d-flex justify-content-between align-items-center mt-5 pt-5 border-top button-group" style="border-top-color: rgba(255, 255, 255, 0.1) !important;">
+                                    <a href="index.html" class="btn-admin-cancel">
+                                        <i class="bi bi-arrow-left me-2"></i> Return to Home
+                                    </a>
+                                    <button type="submit" class="btn-admin-submit">
+                                        <i class="bi bi-cloud-arrow-up-fill me-2"></i> Deploy Product to Catalog
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Section 3: Existing Inventory -->
+                    <div class="glass-form-card mt-5" data-aos="fade-up">
+                        <div class="admin-header py-4">
+                            <i class="bi bi-list-stars mb-2" style="font-size: 2rem;"></i>
+                            <h3>Live Catalog Feed</h3>
+                            <p class="small">Real-time view of products currently deployed to Firebase.</p>
+                        </div>
+                        <div class="admin-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-dark table-hover mb-0 align-middle">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th class="ps-4">Product</th>
+                                            <th>Category</th>
+                                            <th>ID</th>
+                                            <th>Price</th>
+                                            <th>BV</th>
+                                            <th class="pe-4">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="inventoryTable">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script type="module">
+    // Removed storage import
+    import { db } from './js/firebase-config.js';
+    import { collection, addDoc, onSnapshot, query, orderBy, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    AOS.init({ duration: 1000, once: true });
+
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    const packageForm = document.getElementById('packageForm');
+    const productForm = document.getElementById('productForm');
+    const productPackageSelect = document.getElementById('productPackage');
+    const imageDisplay = document.getElementById('imageDisplay');
+    const previewEmpty = document.getElementById('previewEmpty');
+    const previewBox = document.getElementById('previewBox');
+    const productImageFile = document.getElementById('productImageFile');
+    const inventoryTable = document.getElementById('inventoryTable');
+
+    const prevName = document.getElementById('prevName');
+    const prevPrice = document.getElementById('prevPrice');
+    const prevDesc = document.getElementById('prevDesc');
+
+    function toggleLoading(show) {
+        loadingOverlay.style.display = show ? 'flex' : 'none';
+    }
+
+    // Live Preview Listeners
+    document.getElementById('productName').addEventListener('input', (e) => prevName.textContent = e.target.value || 'Product Title');
+    document.getElementById('productPrice').addEventListener('input', (e) => prevPrice.textContent = 'Ksh ' + (e.target.value || '0'));
+    document.getElementById('productDescription').addEventListener('input', (e) => prevDesc.textContent = e.target.value || 'Description preview will appear here...');
+
+    // Real-time Packages listener
+    let globalPackages = {};
+    const packagesCol = collection(db, 'packages');
+    onSnapshot(packagesCol, (snapshot) => {
+        productPackageSelect.innerHTML = '<option value="">Select a category</option>';
+        globalPackages = {};
+        snapshot.forEach(doc => {
+            const data = doc.data();
+            const id = doc.id;
+            globalPackages[id] = data;
+            const option = document.createElement('option');
+            option.value = id;
+            option.textContent = data.name;
+            productPackageSelect.appendChild(option);
+        });
+    });
+
+    // Real-time Products listener for Inventory Table
+    const productsCol = collection(db, 'products');
+    const q = query(productsCol, orderBy('timestamp', 'desc'));
+    onSnapshot(q, (snapshot) => {
+        inventoryTable.innerHTML = '';
+        if (!snapshot.empty) {
+            snapshot.forEach(docSnap => {
+                const product = docSnap.data();
+                const id = docSnap.id;
+                const pkgName = globalPackages[product.category]?.name || product.category;
+                const tr = document.createElement('tr');
+                const safeDesc = (product.description || "").substring(0, 30);
+                
+                tr.innerHTML = `
+                    <td class="ps-4">
+                        <div class="d-flex align-items-center gap-3">
+                            <img src="${product.image || 'https://placehold.co/40'}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 8px;">
+                            <div>
+                                <div class="fw-bold">${product.name || 'Unnamed Product'}</div>
+                                <div class="small opacity-50">${safeDesc}${product.description?.length > 30 ? '...' : ''}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td><span class="badge bg-success opacity-75">${pkgName}</span></td>
+                    <td class="font-monospace small">${product.product_id || 'N/A'}</td>
+                    <td class="fw-bold text-success">Ksh ${product.price || '0'}</td>
+                    <td>${product.bv_value || '0'}</td>
+                    <td class="pe-4">
+                        <button class="btn btn-sm btn-outline-danger border-0 delete-btn" data-id="${id}">
+                            <i class="bi bi-trash3-fill"></i>
+                        </button>
+                    </td>
+                `;
+                inventoryTable.appendChild(tr);
+            });
+
+            // Attach delete listeners
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    if (confirm('Are you sure you want to delete this product?')) {
+                        const productId = btn.getAttribute('data-id');
+                        try {
+                            toggleLoading(true);
+                            await deleteDoc(doc(db, 'products', productId));
+                        } catch (e) {
+                            alert("Error deleting product: " + e.message);
+                        } finally {
+                            toggleLoading(false);
+                        }
+                    }
+                });
+            });
+        } else {
+            inventoryTable.innerHTML = '<tr><td colspan="6" class="text-center py-5 text-white-50">No products found in inventory.</td></tr>';
+        }
+    });
+
+    // Handle Package Addition
+    packageForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = document.getElementById('packageName').value.trim();
+        if (!name) return;
+
+        try {
+            toggleLoading(true);
+            await addDoc(collection(db, 'packages'), { name });
+            alert('Package category added successfully!');
+            packageForm.reset();
+        } catch (error) {
+            alert('Error: ' + error.message);
+        } finally {
+            toggleLoading(false);
+        }
+    });
+
+    // Handle Image Preview
+    productImageFile.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                imageDisplay.src = event.target.result;
+                imageDisplay.style.display = 'block';
+                previewEmpty.style.display = 'none';
+                previewBox.classList.add('has-image');
+            };
+            reader.readAsDataURL(file);
+        } else {
+            imageDisplay.style.display = 'none';
+            previewEmpty.style.display = 'block';
+            previewBox.classList.remove('has-image');
+        }
+    });
+
+    // Handle Product Addition via Base64 String to Firestore Directly
+    productForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const category = productPackageSelect.value;
+        const name = document.getElementById('productName').value.trim();
+        const pId = document.getElementById('productId').value.trim();
+        const price = document.getElementById('productPrice').value.trim();
+        const bv = document.getElementById('productBV').value.trim();
+        const description = document.getElementById('productDescription').value.trim();
+        const benefits = document.getElementById('productBenefits').value.trim();
+        const file = productImageFile.files[0];
+
+        if (!category) {
+            alert('Please select a category.');
+            return;
+        }
+
+        try {
+            toggleLoading(true);
+            let imageUrl = '';
+
+            // Handle file reading inside a Promise wrapper for safe async/await flow
+            if (file) {
+                imageUrl = await new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = (event) => resolve(event.target.result);
+                    reader.onerror = (error) => reject(error);
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            // Write straight to Firestore without hitting Firebase Storage
+            await addDoc(collection(db, 'products'), {
+                category,
+                name,
+                product_id: pId,
+                price,
+                bv_value: bv,
+                description,
+                benefits,
+                image: imageUrl, // Saves the raw Base64 Data URL string
+                timestamp: Date.now()
+            });
+
+            alert('Product deployed to catalog successfully!');
+            productForm.reset();
+            imageDisplay.style.display = 'none';
+            previewEmpty.style.display = 'block';
+            previewBox.classList.remove('has-image');
+            prevName.textContent = 'Product Title';
+            prevPrice.textContent = 'Ksh 0';
+            prevDesc.textContent = 'Description preview will appear here...';
+        } catch (error) {
+            alert('Error submitting product to Firestore: ' + error.message);
+        } finally {
+            toggleLoading(false);
+        }
+    });
+
+    // Logout
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+        localStorage.removeItem('gw_role');
+        localStorage.removeItem('gw_current_user');
+        window.location.href = 'index.html';
+    });
+
+    // BG Animation
+    const canvas = document.getElementById("bg-canvas");
+    const ctx = canvas.getContext("2d");
+    const particles = [];
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    function makeParticle() { return { x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight, size: Math.random() * 2, speed: Math.random() * 0.5 + 0.1 }; }
+    function draw() {
+        ctx.clearRect(0,0,canvas.width,canvas.height); ctx.fillStyle = "rgba(139, 195, 74, 0.5)";
+        particles.forEach(p => { p.y -= p.speed; if (p.y < 0) p.y = canvas.height; ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI*2); ctx.fill(); });
+        requestAnimationFrame(draw);
+    }
+    resize();
+    for(let i=0; i<150; i++) particles.push(makeParticle());
+    window.addEventListener("resize", resize);
+    draw();
+</script>
+</body>
+</html>

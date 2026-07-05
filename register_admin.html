@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Staff Enrollment | Greenworld Admin Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --blue: #60a5fa;
+            --red: #ef4444;
+            --green: #8bc34a;
+            --glass: rgba(255, 255, 255, 0.07);
+            --glass-border: rgba(255, 255, 255, 0.16);
+        }
+
+        * { box-sizing: border-box; }
+        html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
+        body { min-width: 320px; }
+        main, section, header, footer, nav { min-width: 0; }
+        img, video, iframe { max-width: 100%; height: auto; }
+        table { width: 100%; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: #020711;
+            color: #fff;
+            font-family: "Inter", sans-serif;
+        }
+
+        #bg-canvas {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 18% 18%, rgba(96, 165, 250, 0.17), transparent 32%),
+                radial-gradient(circle at 78% 24%, rgba(212, 175, 55, 0.13), transparent 30%),
+                linear-gradient(135deg, #020711 0%, #061827 52%, #030d08 100%);
+        }
+
+        .top-nav {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: rgba(3, 10, 14, 0.74);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(18px);
+        }
+
+        .brand-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 0;
+        }
+
+        .auth-shell {
+            min-height: calc(100vh - 58px);
+            padding: 50px 1rem 70px;
+            display: grid;
+            place-items: center;
+        }
+
+        .admin-auth-card {
+            width: min(560px, 100%);
+            padding: 38px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-top: 4px solid var(--gold);
+            border-radius: 30px;
+            -webkit-backdrop-filter: blur(25px);
+            backdrop-filter: blur(25px);
+            box-shadow: 0 36px 88px rgba(0, 0, 0, 0.48);
+        }
+
+        .security-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: rgba(212, 175, 55, 0.12);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            border-radius: 999px;
+            color: #f3d56b;
+            font-size: 0.74rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+        }
+
+        .form-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .form-subtitle {
+            color: rgba(255, 255, 255, 0.62);
+            margin-bottom: 28px;
+        }
+
+        .input-group-custom {
+            position: relative;
+            margin-bottom: 18px;
+        }
+
+        .input-group-custom i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold);
+            pointer-events: none;
+        }
+
+        .form-control-staff {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.065);
+            border: 1.5px solid rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            color: #fff;
+            padding: 14px 16px 14px 46px;
+            outline: none;
+        }
+
+        .form-control-staff::placeholder { color: rgba(255, 255, 255, 0.36); }
+
+        .form-control-staff:focus {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--blue);
+            box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.18);
+        }
+
+        .btn-admin {
+            width: 100%;
+            border: none;
+            border-radius: 15px;
+            padding: 15px;
+            color: #07130d;
+            background: linear-gradient(135deg, #f3d56b, var(--gold));
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            transition: 0.25s ease;
+            box-shadow: 0 14px 28px rgba(212, 175, 55, 0.2);
+            margin-top: 8px;
+        }
+
+        .btn-admin:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 36px rgba(212, 175, 55, 0.3);
+        }
+
+        .disclaimer {
+            font-size: 0.76rem;
+            color: rgba(255, 255, 255, 0.45);
+            margin-top: 24px;
+            text-align: center;
+            line-height: 1.6;
+            padding: 16px;
+            border-radius: 16px;
+            background: rgba(239, 68, 68, 0.06);
+            border: 1px solid rgba(239, 68, 68, 0.12);
+        }
+
+        .disclaimer b { color: #fca5a5; }
+
+        .return-link {
+            color: rgba(255, 255, 255, 0.64);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.88rem;
+        }
+
+        .return-link:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 560px) {
+            .admin-auth-card { padding: 26px; border-radius: 24px; }
+        }
+
+        @media (max-width: 420px) {
+            .top-nav .container { gap: 10px; }
+            .brand-link { font-size: 0.95rem; }
+            .top-nav .btn { padding-left: 0.75rem !important; padding-right: 0.75rem !important; }
+            .auth-shell { padding: 34px 0.75rem 48px; }
+            .admin-auth-card { padding: 22px 20px; }
+            .form-title { font-size: 1.65rem; }
+            .form-control-staff { min-height: 48px; }
+        }
+
+        @media (min-width: 1400px) {
+            .admin-auth-card { width: min(620px, 100%); padding: 46px; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+    <nav class="top-nav">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a class="brand-link" href="index.html"><i class="bi bi-tree-fill"></i> Greenworld Care</a>
+            <a href="login_admin.html" class="btn btn-sm btn-outline-light rounded-pill px-3">Admin Login</a>
+        </div>
+    </nav>
+
+    <main class="auth-shell">
+        <section class="admin-auth-card">
+            <div class="text-center">
+                <div class="security-badge"><i class="bi bi-shield-lock-fill"></i> Staff Clearance Required</div>
+                <h1 class="form-title">Staff Enrollment</h1>
+                <p class="form-subtitle">Register new administrative credentials for catalog management.</p>
+            </div>
+
+            <form id="proAdminReg">
+                <div class="input-group-custom">
+                    <i class="bi bi-person-badge"></i>
+                    <input type="text" id="staffUser" class="form-control-staff" placeholder="Administrative username" required>
+                </div>
+                <div class="input-group-custom">
+                    <i class="bi bi-envelope-at"></i>
+                    <input type="email" id="staffEmail" class="form-control-staff" placeholder="Official email address" required>
+                </div>
+                <div class="input-group-custom">
+                    <i class="bi bi-key"></i>
+                    <input type="password" id="staffPass" class="form-control-staff" placeholder="Master password" required>
+                </div>
+                <div class="input-group-custom">
+                    <i class="bi bi-shield-check"></i>
+                    <input type="password" id="staffPassConfirm" class="form-control-staff" placeholder="Confirm master password" required>
+                </div>
+
+                <button type="submit" class="btn-admin">Authorize and Create Account</button>
+            </form>
+
+            <div class="disclaimer">
+                <b>Restricted:</b> Access is limited to authorized Greenworld staff. Unauthorized registration attempts are blocked and reviewed.
+            </div>
+
+            <div class="text-center mt-4">
+                <a href="index.html" class="return-link"><i class="bi bi-arrow-left"></i> Return to Customer Login</a>
+            </div>
+        </section>
+    </main>
+<script>
+        document.getElementById("proAdminReg").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const user = document.getElementById("staffUser").value.trim();
+            const password = document.getElementById("staffPass").value;
+            const confirmPassword = document.getElementById("staffPassConfirm").value;
+            
+            // Added "Abraham Tito" and "abraham tito" to the allowed list
+            const allowed = ["Susan", "susan", "CaptainBMW", "captainbmw", "Abraham Tito", "abraham tito"];
+            const disclaimer = document.querySelector(".disclaimer");
+
+            // Password validation
+            const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,15}$/;
+            if (!passRegex.test(password)) {
+                disclaimer.innerHTML = "<b>Error:</b> Password must be 8-15 characters with 1 uppercase, 1 lowercase, and 1 special symbol.";
+                disclaimer.style.background = "rgba(239, 68, 68, 0.2)";
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                disclaimer.innerHTML = "<b>Error:</b> Passwords do not match.";
+                disclaimer.style.background = "rgba(239, 68, 68, 0.2)";
+                return;
+            }
+
+            if (allowed.includes(user)) {
+                // Success - redirect directly
+                window.location.href = "login_admin.html";
+            } else {
+                disclaimer.innerHTML = "<b>Identity not recognized.</b> This registration request was denied.";
+                disclaimer.style.background = "rgba(239, 68, 68, 0.2)";
+            }
+        });
+
+        initPremiumBackground();
+
+        function initPremiumBackground() {
+            const canvas = document.getElementById("bg-canvas");
+            const ctx = canvas.getContext("2d");
+            const particles = [];
+            const pointer = { x: 0, y: 0 };
+            const count = window.matchMedia("(max-width: 768px)").matches ? 80 : 150;
+
+            function resize() {
+                const ratio = Math.min(window.devicePixelRatio || 1, 2);
+                canvas.width = window.innerWidth * ratio;
+                canvas.height = window.innerHeight * ratio;
+                canvas.style.width = `${window.innerWidth}px`;
+                canvas.style.height = `${window.innerHeight}px`;
+                ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+            }
+
+            function makeParticle() {
+                return {
+                    x: (Math.random() - 0.5) * window.innerWidth * 1.5,
+                    y: (Math.random() - 0.5) * window.innerHeight * 1.5,
+                    z: Math.random() * 900 + 100,
+                    speed: Math.random() * 0.62 + 0.24,
+                    size: Math.random() * 1.75 + 0.6,
+                    hue: Math.random() > 0.55 ? 210 : 45
+                };
+            }
+
+            function reset(item) {
+                Object.assign(item, makeParticle(), { z: 980 });
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+                const cx = window.innerWidth / 2;
+                const cy = window.innerHeight / 2;
+
+                particles.forEach(item => {
+                    item.z -= item.speed;
+                    if (item.z <= 1) reset(item);
+
+                    const depth = 480 / item.z;
+                    const x = cx + (item.x + pointer.x * 0.018) * depth;
+                    const y = cy + (item.y + pointer.y * 0.018) * depth;
+                    const radius = Math.max(0.22, item.size * depth * 2.1);
+
+                    if (x < -60 || x > window.innerWidth + 60 || y < -60 || y > window.innerHeight + 60) {
+                        reset(item);
+                        return;
+                    }
+
+                    ctx.beginPath();
+                    ctx.fillStyle = `hsla(${item.hue}, 88%, 68%, ${Math.min(0.85, depth * 0.82)})`;
+                    ctx.shadowColor = `hsla(${item.hue}, 88%, 68%, 0.5)`;
+                    ctx.shadowBlur = 12;
+                    ctx.arc(x, y, radius, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                });
+
+                requestAnimationFrame(draw);
+            }
+
+            resize();
+            for (let i = 0; i < count; i += 1) particles.push(makeParticle());
+            window.addEventListener("resize", resize);
+            window.addEventListener("mousemove", event => {
+                pointer.x = event.clientX - window.innerWidth / 2;
+                pointer.y = event.clientY - window.innerHeight / 2;
+            });
+            draw();
+        }
+    </script>
+</body>
+</html>

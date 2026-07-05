@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Customer Registration | Greenworld Care Wellness</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --green: #8bc34a;
+            --blue: #60a5fa;
+            --glass: rgba(255, 255, 255, 0.075);
+            --glass-border: rgba(255, 255, 255, 0.16);
+            --muted: rgba(255, 255, 255, 0.66);
+        }
+
+        * { box-sizing: border-box; }
+        html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
+        body { min-width: 320px; }
+        main, section, header, footer, nav { min-width: 0; }
+        img, video, iframe { max-width: 100%; height: auto; }
+        table { width: 100%; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: #04110d;
+            color: #fff;
+            font-family: "Inter", sans-serif;
+        }
+
+        #bg-canvas {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 16% 14%, rgba(139, 195, 74, 0.18), transparent 30%),
+                radial-gradient(circle at 82% 18%, rgba(96, 165, 250, 0.16), transparent 32%),
+                linear-gradient(135deg, #03120c 0%, #071a28 50%, #020611 100%);
+        }
+
+        .top-nav {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: rgba(3, 10, 14, 0.72);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(18px);
+        }
+
+        .brand-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 0;
+        }
+
+        .main-content {
+            padding: 56px 1rem 72px;
+        }
+
+        .auth-card {
+            width: min(860px, 100%);
+            margin: 0 auto;
+            padding: 38px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            box-shadow: 0 34px 84px rgba(0, 0, 0, 0.4);
+        }
+
+        .section-tag {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: fit-content;
+            margin: 0 auto 14px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            color: #c8f78f;
+            background: rgba(139, 195, 74, 0.12);
+            border: 1px solid rgba(139, 195, 74, 0.24);
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-title {
+            text-align: center;
+            font-size: clamp(2rem, 5vw, 3.4rem);
+            line-height: 1.04;
+            font-weight: 800;
+            margin: 0;
+        }
+
+        .form-subtitle {
+            text-align: center;
+            color: var(--muted);
+            max-width: 620px;
+            margin: 14px auto 34px;
+            line-height: 1.65;
+        }
+
+        .form-section {
+            background: rgba(255, 255, 255, 0.045);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 22px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .form-section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--green);
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            color: rgba(255, 255, 255, 0.88);
+            font-size: 0.78rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 8px;
+        }
+
+        .input-wrap { position: relative; }
+
+        .input-wrap i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold);
+            pointer-events: none;
+        }
+
+        .form-control,
+        .form-select {
+            background: rgba(255, 255, 255, 0.065);
+            border: 1.5px solid rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            color: #fff;
+            padding: 14px 16px;
+        }
+
+        .input-wrap .form-control { padding-left: 46px; }
+
+        .form-control::placeholder { color: rgba(255, 255, 255, 0.34); }
+
+        .form-control:focus,
+        .form-select:focus {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--blue);
+            box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.18);
+            color: #fff;
+        }
+
+        .form-select option { background: #0f2c1f; color: #fff; }
+
+        .form-check-input {
+            background-color: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.22);
+        }
+
+        .btn-gold {
+            width: 100%;
+            border: none;
+            border-radius: 16px;
+            padding: 16px;
+            color: #07130d;
+            background: linear-gradient(135deg, #f3d56b, var(--gold));
+            font-weight: 800;
+            font-size: 1.02rem;
+            transition: 0.25s ease;
+            box-shadow: 0 14px 28px rgba(212, 175, 55, 0.2);
+        }
+
+        .btn-gold:hover {
+            color: #07130d;
+            transform: translateY(-2px);
+            box-shadow: 0 18px 36px rgba(212, 175, 55, 0.3);
+        }
+
+        .auth-footer {
+            text-align: center;
+            margin-top: 24px;
+            color: var(--muted);
+        }
+
+        .auth-footer a,
+        .text-gold {
+            color: #f3d56b;
+            text-decoration: none;
+            font-weight: 800;
+        }
+
+        .auth-footer a:hover,
+        .text-gold:hover { text-decoration: underline; }
+
+        @media (max-width: 768px) {
+            .auth-card { padding: 24px; border-radius: 24px; }
+            .form-section { padding: 20px; }
+        }
+
+        @media (max-width: 420px) {
+            .top-nav .container { gap: 10px; }
+            .brand-link { font-size: 0.95rem; }
+            .top-nav .btn { padding-left: 0.75rem !important; padding-right: 0.75rem !important; }
+            .main-content { padding: 32px 0.75rem 48px; }
+            .auth-card { padding: 20px; border-radius: 22px; }
+            .form-section { padding: 18px; border-radius: 18px; }
+            .form-title { font-size: 1.85rem; }
+            .form-control,
+            .form-select { min-height: 48px; }
+        }
+
+        @media (min-width: 1400px) {
+            .auth-card { width: min(980px, 100%); padding: 46px; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+    <nav class="top-nav">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a class="brand-link" href="index.html"><i class="bi bi-tree-fill"></i> Greenworld Care</a>
+            <a href="index.html" class="btn btn-sm btn-outline-light rounded-pill px-3">Sign In</a>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <section class="auth-card">
+            <span class="section-tag"><i class="bi bi-person-plus"></i> New Client Enrollment</span>
+            <h1 class="form-title">Start Your Wellness Journey</h1>
+            <p class="form-subtitle">Create your client profile so Greenworld Care can help match your wellness goals with the right product support.</p>
+
+            <form id="detailedRegisterForm">
+                <div class="form-section">
+                    <div class="form-section-title"><i class="bi bi-person-lines-fill"></i> Personal Details</div>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <label for="fullName" class="form-label">Full Legal Name</label>
+                            <div class="input-wrap">
+                                <i class="bi bi-person"></i>
+                                <input type="text" id="fullName" class="form-control" placeholder="Susan Aketch Odhiambo" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="email" class="form-label">Email Address</label>
+                            <div class="input-wrap">
+                                <i class="bi bi-envelope"></i>
+                                <input type="email" id="email" class="form-control" placeholder="name@example.com" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <div class="input-wrap">
+                                <i class="bi bi-telephone"></i>
+                                <input type="tel" id="phone" class="form-control" placeholder="+254 7XX XXX XXX" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="location" class="form-label">Location</label>
+                            <div class="input-wrap">
+                                <i class="bi bi-geo-alt"></i>
+                                <input type="text" id="location" class="form-control" placeholder="Kisumu, Kenya" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="form-section-title"><i class="bi bi-heart-pulse"></i> Wellness Preferences</div>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <label for="healthGoal" class="form-label">Primary Health Goal</label>
+                            <select id="healthGoal" class="form-select" required>
+                                <option value="" selected disabled>Choose your goal</option>
+                                <option value="detox">Body Detoxification</option>
+                                <option value="weight">Weight Management</option>
+                                <option value="immunity">Immune Support</option>
+                                <option value="vitality">Energy and Vitality</option>
+                                <option value="skin">Skin Rejuvenation</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="source" class="form-label">How Did You Hear About Us?</label>
+                            <select id="source" class="form-select">
+                                <option value="social">Social Media</option>
+                                <option value="referral">Referral / Word of Mouth</option>
+                                <option value="search">Online Search</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="form-section-title"><i class="bi bi-shield-lock"></i> Account Security</div>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <label for="password" class="form-label">Create Password</label>
+                            <div class="input-wrap">
+                                <i class="bi bi-lock"></i>
+                                <input type="password" id="password" class="form-control" placeholder="Password" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="confirmPassword" class="form-label">Confirm Password</label>
+                            <div class="input-wrap">
+                                <i class="bi bi-shield-check"></i>
+                                <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm password" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4 form-check">
+                    <input type="checkbox" class="form-check-input" id="consent" required>
+                    <label class="form-check-label small text-white-50" for="consent">
+                        I consent to receiving wellness tips and product updates from Greenworld Care and agree to the <a href="#" class="text-gold">Privacy Policy</a>.
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-gold mt-4">Complete Registration</button>
+            </form>
+
+            <div class="auth-footer">
+                Returning member? <a href="index.html">Sign in to your dashboard</a>
+            </div>
+        </section>
+    </main>
+
+    <script type="module">
+        import { db } from './js/firebase-config.js';
+        import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        document.getElementById("detailedRegisterForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+            const fullName = document.getElementById("fullName").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const phone = document.getElementById("phone").value.trim();
+            const location = document.getElementById("location").value.trim();
+            const healthGoal = document.getElementById("healthGoal").value;
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+
+            // Password validation
+            const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,15}$/;
+            if (!passRegex.test(password)) {
+                alert("Password must be 8-15 characters long and include at least one uppercase letter, one lowercase letter, and one special symbol.");
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match.");
+                return;
+            }
+
+            try {
+                // Save customer to Firestore
+                await addDoc(collection(db, "users"), {
+                    fullName,
+                    email,
+                    phone,
+                    location,
+                    healthGoal,
+                    role: 'customer',
+                    timestamp: serverTimestamp()
+                });
+
+                // Also keep in localStorage for immediate session use if needed
+                const customers = JSON.parse(localStorage.getItem("greenworld_customers")) || [];
+                customers.push({
+                    fullName,
+                    email,
+                    phone,
+                    location,
+                    healthGoal,
+                    timestamp: new Date().toISOString()
+                });
+                localStorage.setItem("greenworld_customers", JSON.stringify(customers));
+
+                alert("Registration successful!");
+                window.location.href = "index.html";
+            } catch (error) {
+                console.error("Error registering user: ", error);
+                alert("Registration failed: " + error.message);
+            }
+        });
+
+        initPremiumBackground();
+
+        function initPremiumBackground() {
+            const canvas = document.getElementById("bg-canvas");
+            const ctx = canvas.getContext("2d");
+            const particles = [];
+            const pointer = { x: 0, y: 0 };
+            const count = window.matchMedia("(max-width: 768px)").matches ? 90 : 170;
+
+            function resize() {
+                const ratio = Math.min(window.devicePixelRatio || 1, 2);
+                canvas.width = window.innerWidth * ratio;
+                canvas.height = window.innerHeight * ratio;
+                canvas.style.width = `${window.innerWidth}px`;
+                canvas.style.height = `${window.innerHeight}px`;
+                ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+            }
+
+            function makeParticle() {
+                return {
+                    x: (Math.random() - 0.5) * window.innerWidth * 1.45,
+                    y: (Math.random() - 0.5) * window.innerHeight * 1.45,
+                    z: Math.random() * 920 + 110,
+                    speed: Math.random() * 0.56 + 0.22,
+                    size: Math.random() * 1.75 + 0.65,
+                    hue: Math.random() > 0.48 ? 92 : 210
+                };
+            }
+
+            function reset(item) {
+                Object.assign(item, makeParticle(), { z: 980 });
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+                const cx = window.innerWidth / 2;
+                const cy = window.innerHeight / 2;
+
+                particles.forEach(item => {
+                    item.z -= item.speed;
+                    if (item.z <= 1) reset(item);
+
+                    const depth = 480 / item.z;
+                    const x = cx + (item.x + pointer.x * 0.02) * depth;
+                    const y = cy + (item.y + pointer.y * 0.02) * depth;
+                    const radius = Math.max(0.22, item.size * depth * 2.1);
+
+                    if (x < -60 || x > window.innerWidth + 60 || y < -60 || y > window.innerHeight + 60) {
+                        reset(item);
+                        return;
+                    }
+
+                    ctx.beginPath();
+                    ctx.fillStyle = `hsla(${item.hue}, 86%, 68%, ${Math.min(0.85, depth * 0.82)})`;
+                    ctx.shadowColor = `hsla(${item.hue}, 86%, 68%, 0.5)`;
+                    ctx.shadowBlur = 12;
+                    ctx.arc(x, y, radius, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                });
+
+                requestAnimationFrame(draw);
+            }
+
+            resize();
+            for (let i = 0; i < count; i += 1) particles.push(makeParticle());
+            window.addEventListener("resize", resize);
+            window.addEventListener("mousemove", event => {
+                pointer.x = event.clientX - window.innerWidth / 2;
+                pointer.y = event.clientY - window.innerHeight / 2;
+            });
+            draw();
+        }
+    </script>
+</body>
+</html>
